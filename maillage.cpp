@@ -12,7 +12,7 @@ class Point {
         cout << "(" << x << ", " << y << ")";
     }
 
-}
+};
 
 class Triangle {
     int ordre; 
@@ -31,7 +31,7 @@ class Triangle {
         }
         cout << endl;
     }
-}
+};
 
 
 
