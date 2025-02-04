@@ -11,8 +11,8 @@ class Point {
     void afficher() const {
         cout << "(" << x << ", " << y << ")";
     }
-
-}
+;
+};
 
 class Triangle {
     int ordre; 
@@ -30,8 +30,8 @@ class Triangle {
             cout << " | Milieux: (" << milieux[0] << ", " << milieux[1] << ", " << milieux[2] << ")";
         }
         cout << endl;
-    }
-}
+    };
+};
 
 
 
