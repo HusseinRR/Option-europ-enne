@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -95,3 +96,5 @@ public:
 
 
         
+=======
+>>>>>>> Stashed changes
