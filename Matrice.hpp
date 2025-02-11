@@ -1,7 +1,7 @@
 #include <ostream>
-//#include<vecteur.hpp>
+#include "vecteur.hpp"
+//#include <vector>
 #include <map>
-#include <vector>
 #include <utility>
 #include <cmath>
 #include <iostream>
@@ -137,6 +137,44 @@ class Matrice //public map<Pint,T> on arrete l'heritage, on fait une sparse et o
     }
     cout<<"\n";
   }
+
+  //factorisation LU
+  void axpy(double alpha, const Matrice &B) {
+    for (size_t i=0; i<n*n; i++) {
+        data_[i] += alpha*B.coeffs[i];
+    }
+  }
+  void factorLU() {
+    for (size_t k=0; k<n; k++) {
+        // No pivoting check, assume no zero pivot
+        for (size_t i=k+1; i<n; i++) {
+            elem(i,k) /= elem(k,k);
+            for (size_t j=k+1; j<n; j++) {
+                elem(i,j) -= elem(i,k)*elem(k,j);
+            }
+        }
+    }
+}
+
+  
+// Solve for x in LU x = b (in-place on x)
+void solveLU(vector &x) const {
+    // Forward substitution for L
+    for (size_t i=1; i<n; i++) {
+        double sum = x[i];
+        for (size_t j=0; j<i; j++) {
+            sum -= elem(i,j)*x[j];
+        }
+        x[i] = sum;
+    }
+    for (int i=(int)n-1; i>=0; i--) {
+        double sum = x[i];
+        for (size_t j=i+1; j<n; j++) {
+            sum -= elem(i,j)*x[j];
+        }
+        x[i] = sum / elem(i,i);
+    }
+}
 };
 
 template <typename T>

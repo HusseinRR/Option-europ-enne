@@ -1,4 +1,4 @@
-
+//g++ main_gabriel.cpp vecteur.hpp Matrice.hpp -o main_gabriel.exe -Wall ; .\main_gabriel.exe
 #include "vecteur.hpp"
 #include "Matrice.hpp"
 
