@@ -1,6 +1,9 @@
+//#ifndef VECTEUR_HPP  // Vérifie si VECTEUR_HPP n'a pas encore été défini
+//#define VECTEUR_HPP
+
 #include <ostream>
-#include "vecteur.hpp"
-//#include <vector>
+//#include "vecteur.hpp"
+#include <vector>
 #include <map>
 #include <utility>
 #include <cmath>
@@ -141,16 +144,16 @@ class Matrice //public map<Pint,T> on arrete l'heritage, on fait une sparse et o
   //factorisation LU
   void axpy(double alpha, const Matrice &B) {
     for (size_t i=0; i<n*n; i++) {
-        data_[i] += alpha*B.coeffs[i];
+        coeffs[i] += alpha*B.coeffs[i];
     }
   }
   void factorLU() {
     for (size_t k=0; k<n; k++) {
         // No pivoting check, assume no zero pivot
         for (size_t i=k+1; i<n; i++) {
-            elem(i,k) /= elem(k,k);
+            coeffs(i,k) /= coeffs(k,k);
             for (size_t j=k+1; j<n; j++) {
-                elem(i,j) -= elem(i,k)*elem(k,j);
+                coeffs(i,j) -= coeffs(i,k)*coeffs(k,j);
             }
         }
     }
@@ -158,21 +161,21 @@ class Matrice //public map<Pint,T> on arrete l'heritage, on fait une sparse et o
 
   
 // Solve for x in LU x = b (in-place on x)
-void solveLU(vector &x) const {
+void solveLU(vector<T> &x) const {
     // Forward substitution for L
     for (size_t i=1; i<n; i++) {
         double sum = x[i];
         for (size_t j=0; j<i; j++) {
-            sum -= elem(i,j)*x[j];
+            sum -= coeffs(i,j)*x[j];
         }
         x[i] = sum;
     }
     for (int i=(int)n-1; i>=0; i--) {
         double sum = x[i];
         for (size_t j=i+1; j<n; j++) {
-            sum -= elem(i,j)*x[j];
+            sum -= coeffs(i,j)*x[j];
         }
-        x[i] = sum / elem(i,i);
+        x[i] = sum / coeffs(i,i);
     }
 }
 };
