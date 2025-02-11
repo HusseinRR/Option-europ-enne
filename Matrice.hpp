@@ -1,9 +1,10 @@
 #include <ostream>
-#include<vecteur.hpp>
+//#include<vecteur.hpp>
 #include <map>
 #include <vector>
 #include <utility>
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 typedef pair<int,int> Pint;
